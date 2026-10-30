@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Startup Studio</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #101827, #172554);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        header h1 { font-size: 36px; }
+
+        header p {
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 10px auto 40px;
+            padding: 30px;
+            border-radius: 18px;
+            background: white;
+            color: #1e293b;
+            box-shadow: 0 15px 45px #0004;
+        }
+
+        h2 { color: #1d4ed8; }
+
+        label {
+            display: block;
+            margin: 18px 0 8px;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            border: 0;
+            border-radius: 9px;
+            background: #2563eb;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover { background: #1d4ed8; }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .checkbox-row input { width: auto; }
+
+        .checkbox-row label { margin: 0; }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 14px;
+            border-radius: 8px;
+            line-height: 1.5;
+        }
+
+        .note {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 28px; }
+            .container { padding: 20px; }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <h1>🚀 AI Startup Studio</h1>
+    <p>
+        Turn your startup idea into an investor pitch deck
+        and an explainer video script.
+    </p>
+</header>
+
+<main class="container">
+    <h2>Generate Your Startup Pitch</h2>
+
+    {% if error %}
+        <div class="error">
+            <strong>Generation failed:</strong>
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <form action="{{ url_for('generate') }}" method="POST">
+        <label for="startup_name">Startup Name *</label>
+        <input
+            id="startup_name"
+            name="startup_name"
+            type="text"
+            placeholder="Example: Smart Waste AI"
+            required
+        >
+
+        <label for="idea">Startup Idea *</label>
+        <textarea
+            id="idea"
+            name="idea"
+            placeholder="Describe your startup idea and the problem it solves..."
+            required
+        ></textarea>
+
+        <label for="target_audience">Target Audience *</label>
+        <input
+            id="target_audience"
+            name="target_audience"
+            type="text"
+            placeholder="Example: Students, households, businesses"
+            required
+        >
+
+        <label for="business_model">Business Model *</label>
+        <select id="business_model" name="business_model" required>
+            <option value="">Select a business model</option>
+            <option value="Subscription">Subscription</option>
+            <option value="Advertising">Advertising</option>
+            <option value="E-commerce">E-commerce</option>
+            <option value="Freemium">Freemium</option>
+            <option value="Commission">Commission</option>
+            <option value="Not decided">Not decided yet</option>
+        </select>
+
+        <label for="funding_goal">Funding Goal (optional)</label>
+        <input
+            id="funding_goal"
+            name="funding_goal"
+            type="text"
+            placeholder="Example: ₹10 lakh"
+        >
+
+        <label for="video_duration">Explainer Video Duration</label>
+        <select id="video_duration" name="video_duration">
+            <option value="30 seconds">30 seconds</option>
+            <option value="60 seconds" selected>60 seconds</option>
+            <option value="90 seconds">90 seconds</option>
+            <option value="2 minutes">2 minutes</option>
+        </select>
+
+        <div class="checkbox-row">
+            <input
+                type="checkbox"
+                id="include_video"
+                name="include_video"
+                value="yes"
+                checked
+            >
+            <label for="include_video">
+                Include explainer video script
+            </label>
+        </div>
+
+        <button type="submit">
+            ✨ Generate My Startup Pitch
+        </button>
+    </form>
+
+    <p class="note">
+        AI-generated business information may contain assumptions.
+        Verify market research, financial estimates, and other claims
+        before presenting your pitch to investors.
+    </p>
+</main>
+
+<footer>
+    AI Startup Studio | Pitch Deck & Explainer Video Generator
+</footer>
+</body>
+</html>

@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ startup_name }} - AI Startup Studio</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #101827;
+            color: #f8fafc;
+            margin: 0;
+            padding: 25px;
+            line-height: 1.7;
+        }
+
+        main {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            color: #1e293b;
+            padding: 24px;
+            margin: 20px 0;
+            border-radius: 12px;
+        }
+
+        .card h2 {
+            color: #1d4ed8;
+        }
+
+        .content {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .notice {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 14px;
+            border-radius: 8px;
+        }
+
+        a {
+            display: inline-block;
+            padding: 12px 18px;
+            margin: 8px 8px 8px 0;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+        }
+
+        a:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+
+<body>
+<main>
+    <h1>🚀 {{ startup_name }}</h1>
+
+    <p>Your AI-generated startup pitch is ready!</p>
+
+    <p class="notice">
+        Review all generated business claims and verify market
+        information before presenting your pitch to investors.
+    </p>
+
+    <h1>📊 Startup Pitch Deck</h1>
+
+    {% for slide in pitch_deck %}
+        <section class="card">
+            <h2>{{ slide.title }}</h2>
+            <div class="content">{{ slide.content }}</div>
+        </section>
+    {% endfor %}
+
+    {% if video_script %}
+        <h1>🎬 Explainer Video Script</h1>
+
+        <section class="card">
+            <h2>Video Script</h2>
+
+            <p>
+                <strong>Requested duration:</strong>
+                {{ video_duration }}
+            </p>
+
+            <div class="content">{{ video_script }}</div>
+        </section>
+    {% endif %}
+
+    <div>
+        <a href="{{ url_for('download_pptx', result_id=result_id) }}">
+            📥 Download PowerPoint
+        </a>
+
+        <a href="{{ url_for('download_docx', result_id=result_id) }}">
+            📝 Download Word Script
+        </a>
+
+        <a href="{{ url_for('home') }}">
+            ← Create Another Pitch
+        </a>
+    </div>
+</main>
+</body>
+</html>
